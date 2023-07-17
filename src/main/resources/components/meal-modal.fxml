@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import ua.ithillel.mealapp.ui.components.IngredientsListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ScrollPane?>
+<VBox fx:id="mealModal"
+      xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+        <VBox>
+           <ScrollPane hbarPolicy="NEVER" maxHeight="600">
+               <HBox>
+                   <VBox styleClass="mealModalImageBox">
+                       <Label styleClass="mealModalTitle" fx:id="mealModalTitle"></Label>
+                       <ImageView fx:id="mealModalImage" fitHeight="200" fitWidth="200" styleClass="mealModalImage"></ImageView>
+                       <Button fx:id="addToFavButton">
+                           <graphic>
+                               <ImageView  fitHeight="50" fitWidth="50">
+                                   <image>
+                                       <Image url="@./../img/like.png"  />
+                                   </image>
+                               </ImageView>
+                           </graphic>
+                       </Button>
+                   </VBox>
+                   <VBox styleClass="mealModalRecipeBox">
+                       <Text styleClass="mealModalRecipeBox" fx:id="mealModalRecipeText" wrappingWidth="600"></Text>
+                   </VBox>
+               </HBox>
+           </ScrollPane>
+        </VBox>
+        <IngredientsListView  fx:id="ingredientsListView"></IngredientsListView>
+<!--        <HBox>-->
+<!--            -->
+<!--            <VBox>-->
+<!--            </VBox>-->
+<!--        </HBox>-->
+    </children>
+
+</VBox>

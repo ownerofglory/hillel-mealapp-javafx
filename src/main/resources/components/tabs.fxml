@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<TabPane fx:id="tabPane"
+         fx:controller="ua.ithillel.mealapp.ui.controller.TabsController"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <Tab fx:id="searchTab" text="Search" closable="false" styleClass="tab"></Tab>
+    <Tab fx:id="categoriesTab" text="Categories" closable="false" styleClass="tab"></Tab>
+    <Tab fx:id="favouriteTab" text="Favourites" closable="false" styleClass="tab"></Tab>
+</TabPane>

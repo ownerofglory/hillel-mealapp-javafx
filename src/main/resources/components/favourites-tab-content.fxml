@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<VBox fx:id="categoriesTabContent"
+      fx:controller="ua.ithillel.mealapp.ui.controller.FavouritesTabContentController"
+      xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+
+    <Label>Favourites</Label>
+
+</VBox>

@@ -1,0 +1,127 @@
+#searchTabContent {
+    -fx-min-width: 800px;
+    -fx-min-height: 580px;
+}
+
+#mealModal {
+    -fx-min-width: 800px;
+    -fx-min-height: 580px;
+}
+
+#categoriesTabContent {
+    -fx-min-width: 800px;
+    -fx-min-height: 580px;
+}
+
+#tabPane {
+ -fx-padding: 0 -1 -1 -1;
+}
+
+.tab {
+    -fx-pref-width: 250;
+    -fx-pref-height: 64px;
+    -fx-font-size: 24px;
+}
+
+.catlabel {
+    -fx-font-size: 64px;
+}
+
+#searchBar {
+    -fx-padding: 24px;
+    -fx-spacing: 24px;
+}
+
+#searchTextField {
+    -fx-min-width: 360px;
+    -fx-min-height: 48px;
+    -fx-font-size: 24px;
+}
+
+#searchButton {
+    -fx-min-height: 48px;
+    -fx-min-width: 72px;
+    -fx-font-size: 24px;
+}
+
+#categoryBar {
+     -fx-padding: 12px;
+     -fx-spacing: 12px;
+}
+
+.menuButton {
+    -fx-min-width: 64px;
+    -fx-min-height: 36px;
+    -fx-font-size: 24px;
+}
+
+#mealItemsContainer {
+    -fx-padding: 12px;
+    -fx-spacing: 20px;
+    -fx-min-width: 720px;
+}
+
+#mealItem {
+    -fx-padding: 12px;
+    -fx-spacing: 20px;
+}
+
+#mealItem:hover {
+    -fx-background-color:#dae7f3;
+}
+
+.mealImage {
+    -fx-fit-height: 48px;
+}
+
+.mealItemTitle {
+    -fx-font-size: 24px;
+}
+
+#categoryItem {
+    -fx-padding: 12px;
+}
+
+#categoryItem:hover {
+    -fx-background-color:#dae7f3;
+}
+
+.categoryImageBox {
+    -fx-padding: 12px;
+    -fx-spacing: 12px;
+}
+
+.categoryDescriptionBox {
+    -fx-padding: 12px;
+    -fx-spacing: 12px;
+}
+
+.categoryDescriptionText {
+    -fx-font-size: 18px;
+}
+
+.categoryItemTitle {
+    -fx-font-size: 32px;
+}
+
+#filterLabel {
+  -fx-font-size: 24px;
+}
+
+.mealModalImageBox {
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+.mealModalRecipeBox {
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+.mealModalTitle {
+    -fx-font-size: 32px;
+}
+
+.mealModalRecipeBox {
+    -fx-font-size: 16px;
+}

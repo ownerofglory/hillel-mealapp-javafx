@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<HBox fx:id="categoryItem"
+      xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox styleClass="categoryImageBox">
+            <ImageView fx:id="categoryImage" fitHeight="128" fitWidth="128" styleClass="categoryImage"></ImageView>
+            <Label styleClass="categoryItemTitle" fx:id="categoryItemTitle"></Label>
+        </VBox>
+        <VBox styleClass="categoryDescriptionBox">
+            <Text styleClass="categoryDescriptionText" fx:id="categoryDescriptionText" wrappingWidth="480"></Text>
+        </VBox>
+    </children>
+</HBox>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<VBox fx:id="categoriesTabContent"
+      fx:controller="ua.ithillel.mealapp.ui.controller.CategoriesTabContentController"
+      xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+
+    <ScrollPane>
+        <VBox fx:id="categoriesContainer">
+
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+<!--            <Label styleClass="catlabel">Categories</Label>-->
+        </VBox>
+    </ScrollPane>
+
+</VBox>
