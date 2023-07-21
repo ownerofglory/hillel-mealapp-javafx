@@ -12,9 +12,9 @@ import ua.ithillel.mealapp.dao.FavouriteMealDao;
 import ua.ithillel.mealapp.dao.FavouriteMealJdbcDao;
 import ua.ithillel.mealapp.db.DbSchemaInitializer;
 import ua.ithillel.mealapp.exception.DbInitException;
-import ua.ithillel.mealapp.model.mapper.AreaMapper;
-import ua.ithillel.mealapp.model.mapper.CategoriesMapper;
-import ua.ithillel.mealapp.model.mapper.MealMapper;
+import ua.ithillel.mealapp.model.mapper.AreaMapperDefault;
+import ua.ithillel.mealapp.model.mapper.CategoriesMapperDefault;
+import ua.ithillel.mealapp.model.mapper.MealMapperDefault;
 import ua.ithillel.mealapp.service.*;
 import ua.ithillel.mealapp.ui.controller.AppControllerFactory;
 import ua.ithillel.mealapp.ui.util.UiComponents;
@@ -39,6 +39,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage)  {
         try {
+            // create a DB connection string
             String sqliteConnStringEnv = System.getenv("SQLITE_CONN_STRING");
             String sqliteConnString = sqliteConnStringEnv != null
                     ? sqliteConnStringEnv : System.getProperty("sqliteConnString");
@@ -52,16 +53,20 @@ public class Main extends Application {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(sqliteConnString);
 
+            // init DB schema
             DbSchemaInitializer.init(connection, "sqlite-schema.sql");
 
 
+            // create DAO
             FavouriteMealDao favouriteMealDao = new FavouriteMealJdbcDao(connection);
-
+            // create client
             MealClient mealClient = new TheMealDbClient(HttpClient.newHttpClient(), new ObjectMapper());
-            MealSearchService mealSearchService = new MealSearchServiceDefault(mealClient, new MealMapper(), favouriteMealDao);
-            CategoryService categoryService = new CategoriesServiceDefault(mealClient, new CategoriesMapper());
-            AreaService areaService = new AreaServiceDefault(mealClient, new AreaMapper());
+            // create services
+            MealSearchService mealSearchService = new MealSearchServiceDefault(mealClient, new MealMapperDefault(), favouriteMealDao);
+            CategoryService categoryService = new CategoriesServiceDefault(mealClient, new CategoriesMapperDefault());
+            AreaService areaService = new AreaServiceDefault(mealClient, new AreaMapperDefault());
 
+            // load UI initially
             FXMLLoader loader = new FXMLLoader();
             loader.setControllerFactory(new AppControllerFactory(mealSearchService, categoryService, areaService));
             loader.setLocation(getClass().getResource(UiComponents.MAIN_SCENE_PATH));

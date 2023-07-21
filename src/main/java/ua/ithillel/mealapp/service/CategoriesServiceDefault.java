@@ -5,6 +5,7 @@ import ua.ithillel.mealapp.model.dto.CategoryDto;
 import ua.ithillel.mealapp.model.dto.CategoryResponseDto;
 import ua.ithillel.mealapp.model.dto.CategoryShortResponseDto;
 import ua.ithillel.mealapp.model.mapper.CategoriesMapper;
+import ua.ithillel.mealapp.model.mapper.CategoriesMapperDefault;
 import ua.ithillel.mealapp.model.vm.CategoryItemVm;
 import ua.ithillel.mealapp.model.vm.CategoryShortItemVm;
 

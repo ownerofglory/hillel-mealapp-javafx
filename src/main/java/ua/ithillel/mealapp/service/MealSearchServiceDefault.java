@@ -7,6 +7,7 @@ import ua.ithillel.mealapp.model.dto.MealDto;
 import ua.ithillel.mealapp.model.dto.MealResponseDto;
 import ua.ithillel.mealapp.model.entity.MealEntity;
 import ua.ithillel.mealapp.model.mapper.MealMapper;
+import ua.ithillel.mealapp.model.mapper.MealMapperDefault;
 import ua.ithillel.mealapp.model.vm.AreaItemVm;
 import ua.ithillel.mealapp.model.vm.CategoryShortItemVm;
 import ua.ithillel.mealapp.model.vm.MealItemVm;
@@ -27,8 +28,14 @@ public class MealSearchServiceDefault implements MealSearchService {
 
     @Override
     public List<MealItemVm> searchMeals(String name) {
+        // call the client
+        // pass the name of a meal
         MealResponseDto mealResponseDto = client.searchMealByName(name);
+
+        // extract meal data from the response
         List<MealDto> meals = mealResponseDto.getMeals();
+
+        // convert the client objects into view models
         return meals.stream()
                 .map(mealMapper::mealDtoToMealItemVm)
                 .collect(Collectors.toList());
@@ -79,6 +86,7 @@ public class MealSearchServiceDefault implements MealSearchService {
     @Override
     public List<MealItemVm> getFavouriteMeals(boolean order) throws MealAppException {
         List<MealEntity> allMealEntities = favouriteMealDao.findAll(order);
+
         return allMealEntities.stream().map(mealMapper::mealEntityToMealItemVm).collect(Collectors.toList());
     }
 

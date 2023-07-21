@@ -4,18 +4,8 @@ import ua.ithillel.mealapp.model.dto.CategoryDto;
 import ua.ithillel.mealapp.model.vm.CategoryItemVm;
 import ua.ithillel.mealapp.model.vm.CategoryShortItemVm;
 
-public class CategoriesMapper {
-    public CategoryShortItemVm categoryDtoToCategoryShortVm(CategoryDto categoryDto) {
-        CategoryShortItemVm categoryShortItemVm = new CategoryShortItemVm();
-        categoryShortItemVm.setName(categoryDto.getStrCategory());
-        return categoryShortItemVm;
-    }
+public interface CategoriesMapper {
+    CategoryShortItemVm categoryDtoToCategoryShortVm(CategoryDto categoryDto);
 
-    public CategoryItemVm categoryDtoToCategoryVm(CategoryDto categoryDto) {
-        CategoryItemVm categoryItemVm = new CategoryItemVm();
-        categoryItemVm.setName(categoryDto.getStrCategory());
-        categoryItemVm.setDescription(categoryDto.getStrCategoryDescription());
-        categoryItemVm.setImageUrl(categoryDto.getStrCategoryThumb());
-        return categoryItemVm;
-    }
+    CategoryItemVm categoryDtoToCategoryVm(CategoryDto categoryDto);
 }
