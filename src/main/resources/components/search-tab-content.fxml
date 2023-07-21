@@ -6,10 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import com.sun.javafx.scene.control.ContextMenuContent.MenuBox?>
 <?import ua.ithillel.mealapp.ui.components.SearchFilterMenuButton?>
-<?import ua.ithillel.mealapp.ui.components.MealBox?>
 <?import javafx.scene.layout.FlowPane?>
 <?import ua.ithillel.mealapp.ui.components.CountryFilterMenuButton?>
 <VBox fx:id="searchTabContent"

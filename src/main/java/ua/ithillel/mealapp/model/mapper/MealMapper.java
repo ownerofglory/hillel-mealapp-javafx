@@ -1,11 +1,14 @@
 package ua.ithillel.mealapp.model.mapper;
 
 import ua.ithillel.mealapp.model.dto.MealDto;
+import ua.ithillel.mealapp.model.entity.IngredientEntity;
+import ua.ithillel.mealapp.model.entity.MealEntity;
 import ua.ithillel.mealapp.model.vm.IngredientVm;
 import ua.ithillel.mealapp.model.vm.MealItemVm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MealMapper {
     public MealItemVm mealDtoToMealItemVm(MealDto mealDto) {
@@ -17,6 +20,59 @@ public class MealMapper {
         mealItemVm.setRecipe(mealDto.getStrInstructions());
 
         return mealItemVm;
+    }
+
+    public MealEntity mealItemVmToMealEntity(MealItemVm mealItemVm) {
+        MealEntity mealEntity = new MealEntity();
+        mealEntity.setName(mealItemVm.getName());
+        mealEntity.setRecipe(mealItemVm.getRecipe());
+        mealEntity.setImageUrl(mealItemVm.getImageUrl());
+        mealEntity.setTheMealDbId(mealItemVm.getId());
+        mealEntity.setVideoUrl(mealItemVm.getVideoUrl());
+
+        List<IngredientEntity> ingredients = mealItemVm.getIngredientVms()
+                .stream()
+                .map(this::ingredientVmToIngredientEntity)
+                .collect(Collectors.toList());
+
+        mealEntity.setIngredients(ingredients);
+
+        return mealEntity;
+    }
+
+    public IngredientEntity ingredientVmToIngredientEntity(IngredientVm ingredientVm) {
+        IngredientEntity ingredient = new IngredientEntity();
+
+        ingredient.setName(ingredientVm.getName());
+        ingredient.setMeasure(ingredientVm.getMeasure());
+
+        return ingredient;
+    }
+
+    public MealItemVm mealEntityToMealItemVm(MealEntity mealEntity) {
+        MealItemVm mealItemVm = new MealItemVm();
+        mealItemVm.setId(mealEntity.getTheMealDbId());
+        mealItemVm.setName(mealEntity.getName());
+        mealItemVm.setRecipe(mealEntity.getRecipe());
+        mealItemVm.setImageUrl(mealEntity.getImageUrl());
+        mealItemVm.setVideoUrl(mealEntity.getVideoUrl());
+
+        List<IngredientEntity> ingredients = mealEntity.getIngredients();
+        if (ingredients != null) {
+            List<IngredientVm> ingredientVms = ingredients
+                    .stream()
+                    .map(this::ingredientEntityToIngredientVm)
+                    .collect(Collectors.toList());
+
+            mealItemVm.setIngredientVms(ingredientVms);
+        }
+
+
+        return mealItemVm;
+    }
+
+    public IngredientVm ingredientEntityToIngredientVm(IngredientEntity ingredientEntity) {
+        return new IngredientVm(ingredientEntity.getName(), ingredientEntity.getMeasure());
     }
 
     private List<IngredientVm> buildIngredients(MealDto mealDto) {

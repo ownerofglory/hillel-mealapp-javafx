@@ -15,6 +15,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import ua.ithillel.mealapp.exception.MealAppException;
 import ua.ithillel.mealapp.model.vm.AreaItemVm;
 import ua.ithillel.mealapp.model.vm.CategoryShortItemVm;
 import ua.ithillel.mealapp.model.vm.MealItemVm;
@@ -24,6 +26,7 @@ import ua.ithillel.mealapp.service.MealSearchService;
 import ua.ithillel.mealapp.ui.components.CountryFilterMenuButton;
 import ua.ithillel.mealapp.ui.components.SearchFilterMenuButton;
 import ua.ithillel.mealapp.ui.event.MealChosenEvent;
+import ua.ithillel.mealapp.ui.event.MealSetFavouriteEvent;
 import ua.ithillel.mealapp.ui.util.UiComponents;
 
 import java.io.IOException;
@@ -73,6 +76,8 @@ public class SearchTabContentController implements Initializable {
         List<MealItemVm> mealItemVms = mealSearchService.searchMeals("a");
         renderMeals(mealItemVms);
 
+
+        // set event hanlders
         searchButton.setOnMouseClicked(this::onSearch);
 
         categoryMenuButton.getItems()
@@ -80,12 +85,13 @@ public class SearchTabContentController implements Initializable {
 
         countryMenuButton.getItems()
                 .forEach(menuItem -> menuItem.setOnAction(this::onCountryChoose));
+
     }
 
     private void onSearch(MouseEvent event) {
         String text = searchTextField.getText();
         List<MealItemVm> mealItemVms = mealSearchService.searchMeals(text);
-        mealItemsContainer.getChildren().clear();
+        clearView();
         renderMeals(mealItemVms);
 
         filterLabel.setText(String.format("Results for query: \"%s\"", text));
@@ -94,7 +100,7 @@ public class SearchTabContentController implements Initializable {
     private void onCategoryChoose(ActionEvent event) {
         MenuItem item = (MenuItem) event.getTarget();
         String text = item.getText();
-        mealItemsContainer.getChildren().clear();
+        clearView();
         CategoryShortItemVm categoryShortItemVm = new CategoryShortItemVm(text);
         List<MealItemVm> mealItemVms = mealSearchService.getMealsByCategory(categoryShortItemVm);
         renderMeals(mealItemVms);
@@ -103,9 +109,11 @@ public class SearchTabContentController implements Initializable {
     }
 
     private void onCountryChoose(ActionEvent event) {
+        clearView();
+
         MenuItem menuItem = (MenuItem) event.getTarget();
         String text = menuItem.getText();
-        mealItemsContainer.getChildren().clear();
+
         AreaItemVm areaItemVm = new AreaItemVm(text);
         List<MealItemVm> mealItemVms = mealSearchService.getMealsByArea(areaItemVm);
         renderMeals(mealItemVms);
@@ -119,27 +127,47 @@ public class SearchTabContentController implements Initializable {
             Parent parent = buildMealModal(chosenMeal);
 
             Stage parentStage = (Stage) this.searchTabContent.getScene().getWindow();
-
             Stage stage = buildModalStage(parent);
             stage.initOwner(parentStage);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    private void handleMealSetFavourite(MealSetFavouriteEvent mealSetFavouriteEvent) {
+        try {
+            MealItemVm favouriteMeal = (MealItemVm) mealSetFavouriteEvent.getSource();
+
+            mealSearchService.toggleFavouriteMeal(favouriteMeal);
+
+        } catch (MealAppException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void handleOnModalClose(WindowEvent event) {
+        try {
+            clearView();
+            List<MealItemVm> favouriteMeals = mealSearchService.getFavouriteMeals(true);
+            renderMeals(favouriteMeals);
+        } catch (MealAppException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void renderCategoryFilter(List<CategoryShortItemVm> categoryShortItemVms) {
-        categoryShortItemVms.stream().forEach(cat -> {
+        categoryShortItemVms.forEach(cat -> {
             MenuItem menuItem = new MenuItem(cat.getName());
             categoryMenuButton.getItems().add(menuItem);
         });
     }
 
     private void renderFilter(List<AreaItemVm> categoryShortItemVms) {
-        categoryShortItemVms.stream().forEach(areaItemVm -> {
+        categoryShortItemVms.forEach(areaItemVm -> {
             if (areaItemVm.getArea().equalsIgnoreCase("russian"))
                 return;
+
             MenuItem menuItem = new MenuItem(areaItemVm.getArea());
             countryMenuButton.getItems().add(menuItem);
         });
@@ -160,7 +188,9 @@ public class SearchTabContentController implements Initializable {
         URL resourceUrl = Objects.requireNonNull(getClass().getResource(UiComponents.MEAL_MODAL_PATH));
         FXMLLoader loader = new FXMLLoader(resourceUrl);
         loader.setControllerFactory(new AppControllerFactory(mealSearchService, categoryService, areaService));
+
         MealModalController mealModelController = new MealModalController();
+        mealModelController.setOnMealSetFavourite(this::handleMealSetFavourite);
 
         MealItemVm mealById = mealSearchService.getMealById(chosenMeal.getId());
 
@@ -181,5 +211,9 @@ public class SearchTabContentController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
 
         return stage;
+    }
+
+    private void clearView() {
+        mealItemsContainer.getChildren().clear();
     }
 }

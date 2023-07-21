@@ -27,7 +27,7 @@ public class AppControllerFactory implements Callback<Class<?>, Object> {
         } else if (type == CategoriesTabContentController.class) {
             return new CategoriesTabContentController(categoryService);
         } else if (type == FavouritesTabContentController.class) {
-            return new FavouritesTabContentController();
+            return new FavouritesTabContentController(mealSearchService);
         } else if (type == MainSceneController.class) {
             return new MainSceneController(mealSearchService, categoryService, areaService);
         } else {
